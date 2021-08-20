@@ -28,8 +28,8 @@ module "subnets" {
 }
 
 module "ad" {
-  source      = "git::https://github.com/clouddrove/terraform-aws-active-directory.git"
-  name        = "acd"
+  source      = "git@github.com:clouddrove/terraform-aws-active-directory.git"
+  name        = "ad"
   environment = "test"
   enabled     = true
 
@@ -54,4 +54,5 @@ module "workspace" {
   label_order        = ["name", "environment"]
   bundle_id          = "wsb-8pmj7b7pq"
   directory_id       = module.ad.directory_id
+
 }
