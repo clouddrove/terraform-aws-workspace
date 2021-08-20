@@ -28,7 +28,7 @@ module "subnets" {
 }
 
 module "ad" {
-  source      = "git@github.com:clouddrove/terraform-aws-active-directory.git"
+  source      = "git::https://github.com/clouddrove/terraform-aws-active-directory.git"
   name        = "acd"
   environment = "test"
   enabled     = true
