@@ -32,9 +32,8 @@ include:
 usage : |-
   ### Simple Example
   Here is an example of how you can use this module in your inventory structure:
-```hcl
-  module "workspace" {
-
+  ```hcl
+      module "workspace" {
       source       = "clouddrove/workspace/aws"
       name         = "workspace"
       environment  = "test"
@@ -44,6 +43,6 @@ usage : |-
       label_order        = ["name", "environment"]
       bundle_id          = "wsb-8pmj7b7pq"
       directory_id       = module.ad.directory_id
-   }
+      }
 
-```
+  ```
