@@ -24,6 +24,8 @@ data "aws_workspaces_bundle" "bundle" {
 
 #Module      : AWS Workspaces
 #Description : Terraform module to create AWS WorkSpaces.
+#tfsec:ignore:aws-workspaces-enable-disk-encryption
+#tfsec:ignore:aws-workspaces-enable-disk-encryption
 resource "aws_workspaces_workspace" "workspace_ad" {
   count = var.enabled ? 1 : 0
 
