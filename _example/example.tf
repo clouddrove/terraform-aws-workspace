@@ -29,7 +29,6 @@ module "subnets" {
 
 module "ad" {
   source      = "clouddrove/active-directory/aws"
-  version     = "0.15.0"
   name        = "ad"
   environment = "test"
   enabled     = true
@@ -46,7 +45,6 @@ module "ad" {
 
 module "workspace" {
   source      = "./../"
-  version     = "0.15.0"
   name        = "workspace"
   environment = "test"
   enabled     = true
