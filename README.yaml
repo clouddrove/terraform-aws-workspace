@@ -41,6 +41,7 @@ usage : |-
   ```hcl
       module "workspace" {
       source       = "clouddrove/workspace/aws"
+      version     = "0.15.0"
       name         = "workspace"
       environment  = "test"
       enabled      =  true
