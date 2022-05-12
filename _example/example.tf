@@ -29,6 +29,7 @@ module "subnets" {
 
 module "ad" {
   source      = "clouddrove/active-directory/aws"
+  version     = "0.15.1"
   name        = "ad"
   environment = "test"
   enabled     = true
