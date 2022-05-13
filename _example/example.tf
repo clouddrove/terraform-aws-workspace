@@ -29,12 +29,12 @@ module "subnets" {
 
 module "ad" {
   source      = "clouddrove/active-directory/aws"
+  version     = "0.15.1"
   name        = "ad"
   environment = "test"
   enabled     = true
 
   subnet_ids                          = module.subnets.public_subnet_id
-  vpc_id                              = module.vpc.vpc_id
   ad_name                             = "ad.clouddrove.com"
   label_order                         = ["name", "environment"]
   ad_password                         = "xyz123@abc"
