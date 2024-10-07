@@ -28,4 +28,3 @@
 | computer\_name | n/a |
 | id | outputs of aws workspaces |
 | ip\_address | n/a |
-
