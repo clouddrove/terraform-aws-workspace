@@ -54,5 +54,14 @@ module "workspace" {
   label_order        = ["name", "environment"]
   bundle_id          = "wsb-8pmj7b7pq"
   directory_id       = module.ad.directory_id
-
+  cost_center          = "IT"
+  owner                = "admin"
+  
+  # Workspace Properties
+  compute_type_name                        = "VALUE"  # Example: 'VALUE', 'STANDARD', 'PERFORMANCE'
+  user_volume_size_gib                     = 10     # Example: 80 GiB for the user volume
+  root_volume_size_gib                     = 80     # Example: 50 GiB for the root volume
+  running_mode                              = "AUTO_STOP"  # Example: 'AUTO_STOP', 'ALWAYS_ON'
+  running_mode_auto_stop_timeout_in_minutes = 60    # Example: 60 minutes timeout for auto-stop
+  
 }
