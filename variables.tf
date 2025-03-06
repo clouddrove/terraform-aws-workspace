@@ -33,7 +33,7 @@ variable "attributes" {
 variable "repository" {
   type        = string
   default     = "https://github.com/clouddrove/terraform-aws-workspace"
-  description = "Terraform current module repo"
+  description = "Terraform current module repo."
 }
 
 variable "enabled" {
@@ -79,32 +79,20 @@ variable "user_volume_encryption_enabled" {
   description = "Indicates whether the data stored on the user volume is encrypted."
 }
 
-variable "compute_type_name" {
-  default     = "VALUE"
-  type        = string
-  description = "The compute type. For more information, see Amazon WorkSpaces Bundles. Valid values are VALUE, STANDARD, PERFORMANCE, POWER, GRAPHICS, POWERPRO and GRAPHICSPRO."
-}
-
-variable "user_volume_size_gib" {
-  default     = 10
-  type        = number
-  description = "The size of the root volume."
-}
-
-variable "root_volume_size_gib" {
-  default     = 80
-  type        = number
-  description = "The size of the root volume."
-}
-
-variable "running_mode" {
-  default     = "AUTO_STOP"
-  type        = string
-  description = "The running mode. For more information, see Manage the WorkSpace Running Mode. Valid values are AUTO_STOP and ALWAYS_ON."
-}
-
-variable "running_mode_auto_stop_timeout_in_minutes" {
-  default     = 60
-  type        = number
-  description = "The time after a user logs off when WorkSpaces are automatically stopped. Configured in 60-minute intervals."
+variable "workspace_properties" {
+  description = "Workspace properties configuration."
+  type = object({
+    compute_type_name                         = string
+    user_volume_size_gib                      = number
+    root_volume_size_gib                      = number
+    running_mode                              = string
+    running_mode_auto_stop_timeout_in_minutes = number
+  })
+  default = {
+    compute_type_name                         = "POWERPRO"  // The compute type. For more information, see Amazon WorkSpaces Bundles. Valid values are VALUE, STANDARD, PERFORMANCE, POWER, GRAPHICS, POWERPRO, and GRAPHICSPRO.
+    user_volume_size_gib                      = 100         // The size of the user volume, in GiB.
+    root_volume_size_gib                      = 175         // The size of the root volume, in GiB.
+    running_mode                              = "ALWAYS_ON" // The running mode of the workspace. Valid values are ALWAYS_ON and AUTO_STOP.
+    running_mode_auto_stop_timeout_in_minutes = 60          // The time, in minutes, that a WorkSpace can remain idle before it is automatically stopped.
+  }
 }
