@@ -89,10 +89,10 @@ variable "workspace_properties" {
     running_mode_auto_stop_timeout_in_minutes = number
   })
   default = {
-    compute_type_name                         = "POWERPRO"  // The compute type. For more information, see Amazon WorkSpaces Bundles. Valid values are VALUE, STANDARD, PERFORMANCE, POWER, GRAPHICS, POWERPRO, and GRAPHICSPRO.
-    user_volume_size_gib                      = 100         // The size of the user volume, in GiB.
-    root_volume_size_gib                      = 175         // The size of the root volume, in GiB.
-    running_mode                              = "ALWAYS_ON" // The running mode of the workspace. Valid values are ALWAYS_ON and AUTO_STOP.
+    compute_type_name                         = "VALUE"     // The compute type. For more information, see Amazon WorkSpaces Bundles. Valid values are VALUE, STANDARD, PERFORMANCE, POWER, GRAPHICS, POWERPRO, and GRAPHICSPRO.
+    user_volume_size_gib                      = 10          // The minimum size of the user volume, in GiB.
+    root_volume_size_gib                      = 80          // The minimum size of the root volume, in GiB.
+    running_mode                              = "AUTO_STOP" // The running mode of the workspace. Valid values are ALWAYS_ON and AUTO_STOP.
     running_mode_auto_stop_timeout_in_minutes = 60          // The time, in minutes, that a WorkSpace can remain idle before it is automatically stopped.
   }
 }

@@ -15,10 +15,10 @@ module "vpc" {
   version = "2.0.0"
 
   name        = "vpc"
-  environment = "test-01"
+  environment = "test"
   label_order = ["name", "environment"]
 
-  cidr_block = "10.20.0.0/16"
+  cidr_block = "10.0.0.0/16"
 }
 
 # -----------------------------------------------------------------------------
@@ -30,7 +30,7 @@ module "subnets" {
   version = "2.0.0"
 
   name        = "subnets"
-  environment = "test-01"
+  environment = "test"
   label_order = ["name", "environment"]
 
   availability_zones = ["eu-west-1a", "eu-west-1b"]
@@ -57,7 +57,6 @@ module "microsoft-ad" {
   directory_name = "test.ld.clouddrove.ca"
   subnet_ids     = module.subnets.public_subnet_id
   vpc_settings   = { vpc_id : module.vpc.vpc_id, subnet_ids : join(",", module.subnets.public_subnet_id) }
-  ad_password    = "xyz123@abc"
   ip_rules       = var.ip_rules
 
   # Additional features
@@ -65,7 +64,9 @@ module "microsoft-ad" {
   short_name  = "clouddrove"
   description = "Microsoft AD for Clouddrove"
   enable_sso  = false
-  alias       = "clouddrove-ad"
+  # Set to true to enable Single Sign-On (SSO) for Microsoft AD
+  # Uncomment the following line to set an alias for the Microsoft AD
+  # alias       = "clouddrove-ad"
 }
 
 # -----------------------------------------------------------------------------
@@ -76,12 +77,12 @@ module "workspace" {
   source = "./../"
 
   name        = "workspace"
-  environment = "test-01"
-  enabled     = true
+  environment = "test"
+  enabled     = false
 
   workspace_properties = var.workspace_properties
-  workspace_username   = "manishshah"
+  workspace_username   = "admin-user"
   label_order          = ["name", "environment"]
-  bundle_id            = "wsb-g5rbnq51n"
+  bundle_id            = "wsb-xnp4cfzht"
   directory_id         = module.microsoft-ad.directory_id
 }
