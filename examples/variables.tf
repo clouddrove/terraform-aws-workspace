@@ -5,13 +5,9 @@ variable "ip_rules" {
   }))
   default = [
     {
-      source      = "43.224.1.228/32"
-      description = "NAT"
-    },
-    {
-      source      = "125.191.14.85/32"
-      description = "NAT"
-    },
+      source      = "51.79.69.69/32" // change it according to your requirement
+      description = "IP Whitelisting"
+    }
   ]
   description = "List of IP rules."
 }
