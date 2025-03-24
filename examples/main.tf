@@ -3,7 +3,7 @@
 # Configure the AWS provider to interact with AWS resources.
 # -----------------------------------------------------------------------------
 provider "aws" {
-  region = "eu-west-1"
+  region = "us-east-1"
 }
 
 # -----------------------------------------------------------------------------
@@ -33,7 +33,7 @@ module "subnets" {
   environment = "test"
   label_order = ["name", "environment"]
 
-  availability_zones = ["eu-west-1a", "eu-west-1b"]
+  availability_zones = ["us-east-1a", "us-east-1b"]
   vpc_id             = module.vpc.vpc_id
   type               = "public"
   igw_id             = module.vpc.igw_id
@@ -46,20 +46,22 @@ module "subnets" {
 # Set up a Microsoft Active Directory within the specified VPC.
 # -----------------------------------------------------------------------------
 module "microsoft-ad" {
-  source = "git::https://github.com/clouddrove/terraform-aws-active-directory.git?ref=feature/ad-modules"
+  source  = "clouddrove/active-directory/aws"
+  version = "1.0.2"
 
-  environment = "test"
-  name        = "ad-clouddrove"
-  label_order = ["name", "environment"]
-
+  environment    = "test"
+  name           = "ad-clouddrove"
+  label_order    = ["name", "environment"]
   directory_type = "MicrosoftAD"
   directory_size = "Small"
   directory_name = "test.ld.clouddrove.ca"
   subnet_ids     = module.subnets.public_subnet_id
   vpc_settings   = { vpc_id : module.vpc.vpc_id, subnet_ids : join(",", module.subnets.public_subnet_id) }
+  ad_password    = "xyz123@abc"
   ip_rules       = var.ip_rules
 
   # Additional features
+  # Additional optional parameters for more features
   edition     = "Standard" # Can be "Standard" or "Enterprise"
   short_name  = "clouddrove"
   description = "Microsoft AD for Clouddrove"
@@ -78,11 +80,10 @@ module "workspace" {
 
   name        = "workspace"
   environment = "test"
-  enabled     = false
-
-  workspace_properties = var.workspace_properties
-  workspace_username   = "admin-user"
-  label_order          = ["name", "environment"]
-  bundle_id            = "wsb-xnp4cfzht"
-  directory_id         = module.microsoft-ad.directory_id
+  enabled     = false // first run terraform apply and then create custom user names in workspace manually and then enable it.
+  # Username for the WorkSpace, must be created manually in AWS Console and should exist in Active Directory.
+  workspace_username = "admin-user"
+  label_order        = ["name", "environment"]
+  bundle_id          = "wsb-xnp4cfzht"
+  directory_id       = module.microsoft-ad.directory_id
 }
