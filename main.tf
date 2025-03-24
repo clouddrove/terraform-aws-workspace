@@ -29,7 +29,7 @@ data "aws_workspaces_bundle" "bundle" {
 resource "aws_workspaces_workspace" "workspace_ad" {
   count = var.enabled ? 1 : 0
 
-# tflint-ignore: directory_id
+  # tflint-ignore: terraform_valid_directory_id
   directory_id = var.directory_id
   bundle_id    = data.aws_workspaces_bundle.bundle.id
   user_name    = var.workspace_username

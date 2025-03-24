@@ -56,7 +56,7 @@ variable "workspace_username" {
 }
 
 variable "directory_id" {
-  default     = "d-00000000"
+  default     = ""
   type        = string
   description = "The ID of the directory for the WorkSpace."
 }
