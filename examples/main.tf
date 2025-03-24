@@ -45,7 +45,7 @@ module "subnets" {
 # Microsoft Active Directory Module
 # Set up a Microsoft Active Directory within the specified VPC.
 # -----------------------------------------------------------------------------
-module "microsoft-ad" {
+module "ad" {
   source  = "clouddrove/active-directory/aws"
   version = "1.0.2"
 
@@ -80,10 +80,10 @@ module "workspace" {
 
   name        = "workspace"
   environment = "test"
-  enabled     = false // first run terraform apply and then create custom user names in workspace manually and then enable it.
+  enabled     = true // first run terraform apply and then create custom user names in workspace manually and then enable it.
   # Username for the WorkSpace, must be created manually in AWS Console and should exist in Active Directory.
   workspace_username = "admin-user"
   label_order        = ["name", "environment"]
   bundle_id          = "wsb-xnp4cfzht"
-  directory_id       = module.microsoft-ad.directory_id
+  directory_id       = module.ad.directory_id
 }

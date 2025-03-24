@@ -5,7 +5,7 @@ variable "ip_rules" {
   }))
   default = [
     {
-      source      = "150.107.189.227/32" // change it according to your requirement
+      source      = "51.79.69.69/32" // change it according to your requirement
       description = "IP Whitelisting"
     }
   ]
