@@ -91,7 +91,7 @@ module "workspace" {
   name        = "${local.name}-workspace"
   environment = local.environment
   label_order = local.label_order
-  enabled     = true // first run terraform apply and then create custom user names in workspace manually and then enable it.
+  enabled     = false // first run terraform apply and then create custom user names in workspace manually and then enable it.
   # Username for the WorkSpace, must be created manually in AWS Console and should exist in Active Directory.
   workspace_username = "admin-user"
   bundle_id          = "wsb-xnp4cfzht"
