@@ -1,9 +1,19 @@
 # -----------------------------------------------------------------------------
+# Local Values
+# Define local values for repeated values.
+# -----------------------------------------------------------------------------
+locals {
+  name        = "app"
+  region      = "us-east-1"
+  environment = "test"
+  label_order = ["environment", "name"]
+}
+# -----------------------------------------------------------------------------
 # AWS Provider Configuration
 # Configure the AWS provider to interact with AWS resources.
 # -----------------------------------------------------------------------------
 provider "aws" {
-  region = "us-east-1"
+  region = local.region
 }
 
 # -----------------------------------------------------------------------------
@@ -14,9 +24,9 @@ module "vpc" {
   source  = "clouddrove/vpc/aws"
   version = "2.0.0"
 
-  name        = "vpc"
-  environment = "test"
-  label_order = ["name", "environment"]
+  name        = "${local.name}-vpc"
+  environment = local.environment
+  label_order = local.label_order
 
   cidr_block = "10.0.0.0/16"
 }
@@ -29,11 +39,11 @@ module "subnets" {
   source  = "clouddrove/subnet/aws"
   version = "2.0.0"
 
-  name        = "subnets"
-  environment = "test"
-  label_order = ["name", "environment"]
+  name        = "${local.name}-subnet"
+  environment = local.environment
+  label_order = local.label_order
 
-  availability_zones = ["us-east-1a", "us-east-1b"]
+  availability_zones = ["${local.region}a", "${local.region}b"]
   vpc_id             = module.vpc.vpc_id
   type               = "public"
   igw_id             = module.vpc.igw_id
@@ -49,9 +59,9 @@ module "ad" {
   source  = "clouddrove/active-directory/aws"
   version = "1.0.3"
 
-  environment    = "test"
-  name           = "ad-clouddrove"
-  label_order    = ["name", "environment"]
+  name           = "${local.name}-ad"
+  environment    = local.environment
+  label_order    = local.label_order
   directory_type = "MicrosoftAD"
   directory_size = "Small"
   directory_name = "test.ld.clouddrove.ca"
@@ -78,12 +88,12 @@ module "ad" {
 module "workspace" {
   source = "./../"
 
-  name        = "workspace"
-  environment = "test"
-  enabled     = false // first run terraform apply and then create custom user names in workspace manually and then enable it.
+  name        = "${local.name}-workspace"
+  environment = local.environment
+  label_order = local.label_order
+  enabled     = true // first run terraform apply and then create custom user names in workspace manually and then enable it.
   # Username for the WorkSpace, must be created manually in AWS Console and should exist in Active Directory.
   workspace_username = "admin-user"
-  label_order        = ["name", "environment"]
   bundle_id          = "wsb-xnp4cfzht"
   directory_id       = module.ad.directory_id
 }
