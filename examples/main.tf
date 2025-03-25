@@ -47,7 +47,7 @@ module "subnets" {
 # -----------------------------------------------------------------------------
 module "ad" {
   source  = "clouddrove/active-directory/aws"
-  version = "1.0.2"
+  version = "1.0.3"
 
   environment    = "test"
   name           = "ad-clouddrove"
@@ -80,7 +80,7 @@ module "workspace" {
 
   name        = "workspace"
   environment = "test"
-  enabled     = true // first run terraform apply and then create custom user names in workspace manually and then enable it.
+  enabled     = false // first run terraform apply and then create custom user names in workspace manually and then enable it.
   # Username for the WorkSpace, must be created manually in AWS Console and should exist in Active Directory.
   workspace_username = "admin-user"
   label_order        = ["name", "environment"]
