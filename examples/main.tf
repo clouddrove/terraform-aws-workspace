@@ -64,7 +64,7 @@ module "ad" {
   label_order    = local.label_order
   directory_type = "MicrosoftAD"
   directory_size = "Small"
-  directory_name = "test.ld.clouddrove.ca"
+  directory_name = "ad.example.com"
   subnet_ids     = module.subnets.public_subnet_id
   vpc_settings   = { vpc_id : module.vpc.vpc_id, subnet_ids : join(",", module.subnets.public_subnet_id) }
   ad_password    = "xyz123@abc"
